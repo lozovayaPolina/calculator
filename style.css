@@ -1,0 +1,39 @@
+body {
+    background: radial-gradient(at center, #dddf95, #dd9ed7);
+}
+
+#container {
+    width: 200px;
+    text-align: center;
+    margin: 200px auto;
+   font-size: 30px;
+   -webkit-box-shadow: 0px 0px 8px 9px rgba(34, 60, 80, 0.22);
+-moz-box-shadow: 0px 0px 8px 9px rgba(34, 60, 80, 0.22);
+box-shadow: 0px 0px 8px 9px rgba(34, 60, 80, 0.22);
+}
+.col-3, .col-6 {
+    border-bottom: rgb(206, 206, 206) solid 1px;
+    border-left: rgb(206, 206, 206) solid 1px;
+    border-right: rgb(206, 206, 206) solid 1px;
+    background-color: rgb(223, 223, 223)
+}
+.row, .operators{
+    background-color: rgb(41, 41, 41) ;
+}
+.sum {
+    display: flex;
+    align-items: flex-end;
+    height: 75px;
+    border: rgb(61, 61, 61) solid 1px;
+    background-color: rgb(61, 61, 61);
+    color: rgb(223, 223, 223);
+}
+.red {
+    color: rgb(223, 223, 223);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: rgb(224, 92, 92);
+}
+
+
