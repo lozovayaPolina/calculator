@@ -21,12 +21,14 @@ numbers.forEach((number) =>
 {
 	number.addEventListener("click", (event) =>
     {
-		inputNumber(event.target.innerText)
-		updateScreen(currentInput)
+        const num = event.target.innerText
+		inputNumber(num)
+		updateScreen(num)
 	})
 })
 
 const operators = document.querySelectorAll("button[data-operation]")
+
 const inputOperator = (operator) =>
 {
     prevInput = currentInput
@@ -47,28 +49,33 @@ const equalSign = document.querySelector("button[data-equal]")
 
 equalSign.addEventListener("click", () =>
 {
-    calculate();
-    updateScreen(currentInput)
+    let result = calculate()
+    prevInput = '0'
+    calculationOperator = ''
+    currentInput = result.toString()
+    updateScreen(result, true)
 })
 
 const clearBtn = document.querySelector("button[data-clearall]")
 
 clearBtn.addEventListener("click", () =>
 {
-    clearAll()
-    updateScreen(currentInput)
-})
-
-const clearAll = () =>
-{
     prevInput = '0'
     calculationOperator = ''
     currentInput = '0'
-}
+    updateScreen(currentInput, true)
+})
 
-const updateScreen = (number) =>
+const updateScreen = (symbol, overwrite) =>
 {
-	calculatorScreen.value = number
+    if (!overwrite)
+    {
+        calculatorScreen.value = calculatorScreen.value + symbol
+    }
+    else
+    {
+        calculatorScreen.value = symbol
+    }
 }
 
 const calculate = () =>
@@ -93,6 +100,5 @@ const calculate = () =>
         default:
             return
     }
-    currentInput = result.toString()
-    calculationOperator = ''
+    return result
 }
