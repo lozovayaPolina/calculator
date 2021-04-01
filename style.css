@@ -20,9 +20,12 @@ body {
     background-color: rgb(41, 41, 41);
 }
 
-.sum {
-    display: flex;
+.data-current-operand{
     align-items: flex-end;
+}
+.result {
+    display: flex;
+    
     height: 75px;
     border: rgb(61, 61, 61) solid 1px;
     background-color: rgb(61, 61, 61);
