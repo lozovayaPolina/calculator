@@ -6,20 +6,20 @@ body {
     width: 200px;
     text-align: center;
     margin: 200px auto;
-   font-size: 30px;
-   -webkit-box-shadow: 0px 0px 8px 9px rgba(34, 60, 80, 0.22);
--moz-box-shadow: 0px 0px 8px 9px rgba(34, 60, 80, 0.22);
-box-shadow: 0px 0px 8px 9px rgba(34, 60, 80, 0.22);
+    font-size: 30px;
+    -webkit-box-shadow: 0 0 8px 9px rgba(34, 60, 80, 0.22); /* TODO: у 0 можно не указывать px :) */
+    -moz-box-shadow: 0 0 8px 9px rgba(34, 60, 80, 0.22);
+    box-shadow: 0 0 8px 9px rgba(34, 60, 80, 0.22);
 }
-.col-3, .col-6 {
-    border-bottom: rgb(206, 206, 206) solid 1px;
-    border-left: rgb(206, 206, 206) solid 1px;
-    border-right: rgb(206, 206, 206) solid 1px;
-    background-color: rgb(223, 223, 223)
+
+/* TODO: лучше стили для кнопок задавать в отдельнок классе .button, а в .col-3, .col-6 оставлять что-то относящееся непосредственно к рядам.  */
+/* .col-3, .col-6 {} */
+
+/* TODO: .row излишний в данном случае */
+.operators {
+    background-color: rgb(41, 41, 41);
 }
-.row, .operators{
-    background-color: rgb(41, 41, 41) ;
-}
+
 .sum {
     display: flex;
     align-items: flex-end;
@@ -28,19 +28,56 @@ box-shadow: 0px 0px 8px 9px rgba(34, 60, 80, 0.22);
     background-color: rgb(61, 61, 61);
     color: rgb(223, 223, 223);
 }
-.red {
-    color: rgb(223, 223, 223);
-    border-top: none;
-    border-left: none;
+
+.button {
+    /* TODO: семантически правильно, чтобы кнопка было именно тегом button, а не div. Но тогда у нее по-дефолту задаются
+        свои стили. Их надо убрать. Это border, outline.
+     */
+    border: none;
+    border-bottom: rgb(206, 206, 206) solid 1px;
+    border-right: rgb(206, 206, 206) solid 1px;
+    background-color: rgb(223, 223, 223);
+}
+
+.button:focus {
+    outline: none;
+}
+
+/* TODO: + надо добавить немного интерактивности не действия пользователей */
+.button:hover {
+    background-color: rgb(191, 191, 191);
+}
+
+.button:active {
+    background-color: rgb(165, 165, 165);
+}
+
+/* TODO: +не забыть про красные кнопки */
+.button__red:hover {
+    background-color: rgb(239, 112, 112);
+}
+
+.button__red:active {
+    background-color: rgb(200, 82, 82);
+}
+
+/* TODO butt -- button лучше так не сокращать 😅 */
+.button__bottom {
+    border-bottom: none;
+}
+
+.button__right {
     border-right: none;
+}
+
+.button__red {
+    color: rgb(223, 223, 223);
     background-color: rgb(224, 92, 92);
 }
-.butt {
-    border-bottom: none;
-    border-left: none;
-}
-.non {
-    border-left: none;
-}
 
 
+/*
+TODO: По итогу: по началу может показать, что такие громоздкие конструкции, как для последней
+ кнопки '=' (class="col-3 button button__red button__right button__bottom") могут быть неудобны, но
+ на практике наоборот: ты в любой момент можешь собрать стили как конструктор, что улучшит поддержку кода.
+ */
