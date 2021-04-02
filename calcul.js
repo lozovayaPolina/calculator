@@ -1,7 +1,7 @@
 const calculatorScreen = document.querySelector(".result")
 
 let prevInput='0'
-let calOperator= ''
+let calculationOperator= ''
 let currentInput='0'
 
 const numbers=document.querySelectorAll("button[data-number]")
@@ -64,6 +64,24 @@ clearBtn.addEventListener("click", () =>
     calculationOperator = ''
     currentInput = '0'
     updateScreen(currentInput, true)
+})
+
+const deleteLastSymbolBtn = document.querySelector("button[data-deletelastsymbol]")
+
+deleteLastSymbolBtn.addEventListener("click", () =>
+{
+    if (calculationOperator === '')
+    {
+        currentInput = currentInput.substring(0, currentInput.length - 1)
+        updateScreen(currentInput, true)
+    }
+    else
+    {
+        calculationOperator = ''
+        currentInput = prevInput
+        prevInput = '0'
+        updateScreen(currentInput, true)
+    }
 })
 
 const updateScreen = (symbol, overwrite) =>
