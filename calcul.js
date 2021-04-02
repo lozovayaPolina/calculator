@@ -99,21 +99,23 @@ const updateScreen = (symbol, overwrite) =>
 const calculate = () =>
 {
     let result = 0
+    let first = parseFloat(prevInput)
+    let second = parseFloat(currentInput)
     switch(calculationOperator) {
         case '+':
-            result = parseInt(prevInput) + parseInt(currentInput)
+            result = first + second
             break
         case '-':
-            result = parseInt(prevInput) - parseInt(currentInput)
+            result = first - second
             break
         case '*':
-            result = parseInt(prevInput) * parseInt(currentInput)
+            result = first * second
             break
         case '/':
-            result = parseInt(prevInput) / parseInt(currentInput)
+            result = first / second
             break
 	    case '%':
-            result = (parseInt(prevInput)/100)*parseInt(currentInput)
+            result = (first / 100) * second
             break
         default:
             return
