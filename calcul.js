@@ -13,6 +13,8 @@ const inputNumber = (symbol) => {
             firstNumber = firstNumber + symbol
         else if (firstNumber === '0')
             firstNumber = symbol
+        else if (firstNumber === '-0')
+            firstNumber = '-' + symbol
         else
             firstNumber = firstNumber + symbol
     }
@@ -43,7 +45,17 @@ operators.forEach((operator) =>
 {
     operator.addEventListener("click", (event) =>
     {
-        calculationOperator = event.target.innerText
+        let newOperation = event.target.innerText
+        if (newOperation === '-' &&
+            calculationOperator === '' &&
+            firstNumber === '0')
+        {
+            firstNumber = newOperation + firstNumber
+            updateScreen()
+            return
+        }
+        
+        calculationOperator = newOperation
         updateScreen()
     })
 })
@@ -52,6 +64,9 @@ const equalSign = document.querySelector("button[data-equal]")
 
 equalSign.addEventListener("click", () =>
 {
+    if (calculationOperator === '')
+        return
+
     let result = calculate()
     firstNumber = result.toString()
     secondNumber = '0'
