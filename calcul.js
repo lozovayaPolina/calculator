@@ -1,20 +1,30 @@
 const calculatorScreen = document.querySelector(".result")
 
-let prevInput='0'
-let calculationOperator= ''
-let currentInput='0'
+let firstNumber = '0'
+let secondNumber = '0'
+let calculationOperator = ''
 
-const numbers=document.querySelectorAll("button[data-number]")
+const numbers = document.querySelectorAll("button[data-number]")
 
-const inputNumber = (number) => {
-	if (currentInput === '0')
+const inputNumber = (symbol) => {
+	if (calculationOperator === '')
     {
-		currentInput = number
-	}
+        if (symbol === '.')
+            firstNumber = firstNumber + symbol
+        else if (firstNumber === '0')
+            firstNumber = symbol
+        else
+            firstNumber = firstNumber + symbol
+    }
     else
     {
-		currentInput = currentInput + number
-	}
+        if (symbol === '.')
+            secondNumber = secondNumber + symbol
+        else if (secondNumber === '0')
+            secondNumber = symbol
+        else
+            secondNumber = secondNumber + symbol
+    }
 }
 
 numbers.forEach((number) => 
@@ -23,25 +33,18 @@ numbers.forEach((number) =>
     {
         const num = event.target.innerText
 		inputNumber(num)
-		updateScreen(num)
+		updateScreen()
 	})
 })
 
 const operators = document.querySelectorAll("button[data-operation]")
 
-const inputOperator = (operator) =>
-{
-    prevInput = currentInput
-    calculationOperator = operator
-    updateScreen(operator)
-    currentInput = '0'
-}
-
 operators.forEach((operator) =>
 {
     operator.addEventListener("click", (event) =>
     {
-        inputOperator(event.target.innerText)
+        calculationOperator = event.target.innerText
+        updateScreen()
     })
 })
 
@@ -50,20 +53,20 @@ const equalSign = document.querySelector("button[data-equal]")
 equalSign.addEventListener("click", () =>
 {
     let result = calculate()
-    prevInput = '0'
+    firstNumber = result.toString()
+    secondNumber = '0'
     calculationOperator = ''
-    currentInput = result.toString()
-    updateScreen(result, true)
+    updateScreen()
 })
 
 const clearBtn = document.querySelector("button[data-clearall]")
 
 clearBtn.addEventListener("click", () =>
 {
-    prevInput = '0'
+    firstNumber = '0'
+    secondNumber = '0'
     calculationOperator = ''
-    currentInput = '0'
-    updateScreen(currentInput, true)
+    updateScreen()
 })
 
 const deleteLastSymbolBtn = document.querySelector("button[data-deletelastsymbol]")
@@ -72,35 +75,41 @@ deleteLastSymbolBtn.addEventListener("click", () =>
 {
     if (calculationOperator === '')
     {
-        currentInput = currentInput.substring(0, currentInput.length - 1)
-        updateScreen(currentInput, true)
+        if (firstNumber.length == 1)
+            firstNumber = '0'
+        else
+            firstNumber = firstNumber.substring(0, firstNumber.length - 1)
     }
     else
     {
-        calculationOperator = ''
-        currentInput = prevInput
-        prevInput = '0'
-        updateScreen(currentInput, true)
+        if (secondNumber != '0')
+        {
+            if (secondNumber.length == 1)
+                secondNumber = '0'
+            else
+                secondNumber = secondNumber.substring(0, secondNumber.length - 1)
+        }
+        else
+            calculationOperator = ''
     }
+    updateScreen()
 })
 
-const updateScreen = (symbol, overwrite) =>
+const updateScreen = (symbol) =>
 {
-    if (!overwrite)
-    {
-        calculatorScreen.value = calculatorScreen.value + symbol
-    }
-    else
-    {
-        calculatorScreen.value = symbol
-    }
+    let result = firstNumber
+    if (calculationOperator != '')
+        result = result + calculationOperator
+    if (secondNumber != '0')
+        result = result + secondNumber
+    calculatorScreen.value = result
 }
 
 const calculate = () =>
 {
     let result = 0
-    let first = parseFloat(prevInput)
-    let second = parseFloat(currentInput)
+    let first = parseFloat(firstNumber)
+    let second = parseFloat(secondNumber)
     switch(calculationOperator) {
         case '+':
             result = first + second
@@ -122,3 +131,5 @@ const calculate = () =>
     }
     return result
 }
+
+updateScreen()
